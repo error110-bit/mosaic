@@ -3,5 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": "./src/index.ts"
+  "exports": {
+    ".": "./src/index.ts",
+    "./simulation-spec-v0.1.schema.json": "./simulation-spec-v0.1.schema.json"
+  },
+  "scripts": {
+    "test": "node test/simulation-spec.test.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1"
+  }
 }

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mosaic.dev/schemas/simulation-spec-v0.1.schema.json",
+  "title": "Mosaic SimulationSpec v0.1",
+  "description": "The schema-first contract for a Mosaic interactive learning simulation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "metadata",
+    "objective",
+    "components",
+    "parameters",
+    "initialState",
+    "actions",
+    "events"
+  ],
+  "properties": {
+    "metadata": {
+      "$ref": "#/$defs/Metadata"
+    },
+    "objective": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Component"
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Parameter"
+      }
+    },
+    "initialState": {
+      "type": "object",
+      "description": "Simulation-specific initial state. Its fields intentionally remain flexible."
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Action"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Event"
+      }
+    }
+  },
+  "$defs": {
+    "Metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" }
+      }
+    },
+    "Component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "description": "An extensible Mosaic toolkit component type."
+        }
+      }
+    },
+    "Parameter": {
+      "description": "A named parameter whose value must match its declared type.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "type", "value"],
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "const": "number" },
+            "value": { "type": "number" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "type", "value"],
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "const": "boolean" },
+            "value": { "type": "boolean" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "type", "value"],
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "const": "string" },
+            "value": { "type": "string" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "type", "value"],
+          "properties": {
+            "name": { "type": "string" },
+            "type": { "const": "array" },
+            "value": { "type": "array" }
+          }
+        }
+      ]
+    },
+    "Action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "enum": ["step", "reset", "play", "pause", "set_parameter"]
+        },
+        "target": { "type": "string" },
+        "parameters": {
+          "type": "object",
+          "description": "Action-specific input, intentionally left flexible."
+        }
+      }
+    },
+    "Event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "An extensible simulation event type."
+        },
+        "description": { "type": "string" }
+      }
+    }
+  }
+}
