@@ -1,2 +1,13 @@
-/** Simulation engine contracts will be introduced in a future milestone. */
-export {};
+export { SimulationEngine } from "./engine.js";
+export type {
+  EngineAction,
+  JsonObject,
+  JsonValue,
+  ParameterType,
+  ParameterValues,
+  SimulationEngineOptions,
+  SimulationState,
+  StepBehavior,
+  StepContext,
+  ValidatedSimulationSpec,
+} from "./types.js";
