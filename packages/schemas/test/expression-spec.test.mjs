@@ -69,4 +69,3 @@ test("validates nested expression state.position + state.velocity * parameter.mu
 
   assert.equal(validateExpression(expr), true);
 });
-

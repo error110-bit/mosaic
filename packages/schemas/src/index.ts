@@ -60,3 +60,33 @@ export type Expression =
   | LiteralExpression
   | OperationExpression;
 
+export interface Condition {
+  readonly expression: Expression;
+}
+
+export interface StateUpdate {
+  readonly target: readonly string[];
+  readonly value: Expression;
+}
+
+export interface Transition {
+  readonly condition?: Condition;
+  readonly updates: readonly StateUpdate[];
+}
+
+export interface EventRule {
+  readonly name: string;
+  readonly condition?: Condition;
+  readonly payload?: Expression;
+}
+
+export interface EventEvaluationResult {
+  readonly emitted: boolean;
+  readonly name: string;
+  readonly payload?: JsonValue;
+}
+
+export interface EmittedEvent {
+  readonly name: string;
+  readonly payload?: JsonValue;
+}

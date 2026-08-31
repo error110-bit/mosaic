@@ -9,7 +9,7 @@
   },
   "scripts": {
     "check": "tsc --noEmit",
-    "test": "node test/simulation-spec.test.mjs && node test/expression-spec.test.mjs"
+    "test": "node test/simulation-spec.test.mjs && node test/expression-spec.test.mjs && node test/condition-spec.test.mjs && node test/transition-spec.test.mjs && node test/event-spec.test.mjs"
   },
   "devDependencies": {
     "ajv": "^8.17.1"

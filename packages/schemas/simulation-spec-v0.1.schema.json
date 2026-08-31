@@ -237,6 +237,71 @@
           "maxItems": 1
         }
       }
+    },
+    "Condition": {
+      "description": "A boolean condition evaluated against simulation state and parameters.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expression"],
+      "properties": {
+        "expression": {
+          "$ref": "#/$defs/Expression"
+        }
+      }
+    },
+    "StateUpdate": {
+      "description": "A target state path and the Expression used to compute its new value.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "value"],
+      "properties": {
+        "target": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "value": {
+          "$ref": "#/$defs/Expression"
+        }
+      }
+    },
+    "Transition": {
+      "description": "An atomic state transition guarded by an optional condition.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["updates"],
+      "properties": {
+        "condition": {
+          "$ref": "#/$defs/Condition"
+        },
+        "updates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/StateUpdate"
+          }
+        }
+      }
+    },
+    "EventRule": {
+      "description": "An event rule with an optional condition and optional expression payload.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "$ref": "#/$defs/Condition"
+        },
+        "payload": {
+          "$ref": "#/$defs/Expression"
+        }
+      }
     }
   }
 }
