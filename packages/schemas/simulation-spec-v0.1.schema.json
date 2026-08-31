@@ -143,6 +143,100 @@
         },
         "description": { "type": "string" }
       }
+    },
+    "Expression": {
+      "description": "A structured, deterministic expression tree.",
+      "oneOf": [
+        { "$ref": "#/$defs/StateExpression" },
+        { "$ref": "#/$defs/ParameterExpression" },
+        { "$ref": "#/$defs/LiteralExpression" },
+        { "$ref": "#/$defs/OperationExpression" }
+      ]
+    },
+    "StateExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "path"],
+      "properties": {
+        "type": { "const": "state" },
+        "path": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+    "ParameterExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "const": "parameter" },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "LiteralExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "value"],
+      "properties": {
+        "type": { "const": "literal" },
+        "value": {
+          "description": "A literal JSON value."
+        }
+      }
+    },
+    "OperationExpression": {
+      "description": "An operation on structured operands with enforced arity.",
+      "oneOf": [
+        { "$ref": "#/$defs/BinaryOperationExpression" },
+        { "$ref": "#/$defs/UnaryOperationExpression" }
+      ]
+    },
+    "BinaryOperationExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "operation", "operands"],
+      "properties": {
+        "type": { "const": "operation" },
+        "operation": {
+          "enum": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "equal",
+            "not_equal",
+            "greater_than",
+            "greater_than_or_equal",
+            "less_than",
+            "less_than_or_equal"
+          ]
+        },
+        "operands": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Expression" },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "UnaryOperationExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "operation", "operands"],
+      "properties": {
+        "type": { "const": "operation" },
+        "operation": {
+          "enum": ["abs"]
+        },
+        "operands": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Expression" },
+          "minItems": 1,
+          "maxItems": 1
+        }
+      }
     }
   }
 }

@@ -1,0 +1,8 @@
+{
+  "description": "Parameter reference with empty name string",
+  "expression": {
+    "type": "parameter",
+    "name": ""
+  }
+}
+

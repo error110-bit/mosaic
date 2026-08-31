@@ -8,7 +8,8 @@
     "./simulation-spec-v0.1.schema.json": "./simulation-spec-v0.1.schema.json"
   },
   "scripts": {
-    "test": "node test/simulation-spec.test.mjs"
+    "check": "tsc --noEmit",
+    "test": "node test/simulation-spec.test.mjs && node test/expression-spec.test.mjs"
   },
   "devDependencies": {
     "ajv": "^8.17.1"

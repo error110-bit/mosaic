@@ -1,0 +1,9 @@
+{
+  "description": "Expression with prohibited extra property",
+  "expression": {
+    "type": "parameter",
+    "name": "multiplier",
+    "customField": "not-allowed"
+  }
+}
+
