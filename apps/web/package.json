@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "npm run build --workspace @mosaic/ui",
     "build": "tsc --noEmit && vite build",
+    "precheck": "npm run build --workspace @mosaic/ui",
     "check": "tsc --noEmit"
   },
   "dependencies": {
+    "@mosaic/simulation": "*",
+    "@mosaic/ui": "*",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
